@@ -1,0 +1,41 @@
+{% include "Entete.html" %}
+</br>
+<div class="container-fluid">
+    <div class="row">
+ 
+	<table class ="table table-striped" style="width:1100px;margin-left:210px; font-size:20px; ">
+			<thead>
+				<tr  >
+					<th scope="col">Année</th>
+					<th scope="col">Population Moyenne</br>(Au 1er Janvier)  </th>
+					<th scope="col">Naissances</th>
+					<th scope="col">Décès</th>
+					<th scope="col">Changement </br>   Naturel</th>
+					<th scope="col">Changement </br>Naturel</br> (Pour 1000)</th>
+				</tr>
+			</thead>
+				<tbody>
+						{% for element in table %}
+						<tr>
+							<td>{{ element['Year'] }}</td>
+							<td>{{ element['Average population (1 January)'] }}</td>
+							<td>{{ element['Live births'] }}</td>
+							<td>{{ element['Deaths'] }}</td>
+							<td>	{% if element['Natural change'] < 0 %}
+										<p style=" color:red;"> {{ element['Natural change'] }}   </p>
+									{% else %}
+										{{ element['Natural change'] }}
+									{% endif %}
+							</td>
+							<td>	{% if element['Natural change (per 1000)'] < 0 %}
+										<p style=" color:red;"> {{ element['Natural change (per 1000)'] }}   </p>
+									{% else %}
+										{{ element['Natural change (per 1000)'] }}
+									{% endif %}
+							</td>
+						</tr>
+						{% endfor %}
+				</tbody>
+			</table>
+	</div>
+</div>

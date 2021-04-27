@@ -1,0 +1,227 @@
+{% include "Entete.html" %}
+<style>
+body{ width: 100%; float: left; }
+.tab1,
+.tab2{ width: 40%; float: left; margin-top :0px; }
+
+</style></br>
+
+<form role="form" action="/vueAccueil/vueDate" method="POST" style="font-size:18px;  margin-left:510px; " >
+	<div class="form-group" >
+		<label for="yearDeb">Date debut</label>
+		<select name="yearDeb" id="yearDeb">
+			{% for element in table1 %}
+				<option value="{{ element['Year'] }}">
+					{{ element['Year'] }} </option>
+			{% endfor %}
+		</select>
+		<label for="yearFin">Date fin</label>
+		<select name="yearFin" id="yearFin">
+			{% for element in table2 %}
+				<option value="{{ element['Year'] }}">
+					{{ element['Year'] }} </option>
+			{% endfor %}
+		</select>
+		<button type="submit" class="btn btn-success">Se connecter</button>
+	</div>
+</form></br>
+
+<div class="tab1">
+	<table  class ="table table-striped" style="width:700px;margin-left:60px; margin-right:50px; font-size:15px; margin-top:0px; ">
+		<thead>
+			<tr>
+				<th scope="col">Année</th>
+				<th scope="col">Population Moyenne</br>(Au 1er Janvier)  </th>
+				<th scope="col">Naissances</th>
+				<th scope="col">Décès</th>
+				<th scope="col">Changement </br>   Naturel</th>
+				<th scope="col">Changement </br>Naturel</br> (Pour 1000)</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for element in tableB %}
+				<tr>
+					<td>{{ element['Year'] }}</td>
+					<td>{{ element['Average population (1 January)'] }}</td>
+					<td>{{ element['Live births'] }}</td>
+					<td>{{ element['Deaths'] }}</td>
+					<td>{% if element['Natural change'] < 0 %}
+							<p style=" color:red;"> {{ element['Natural change'] }}   </p>
+						{% else %}
+							{{ element['Natural change'] }}
+						{% endif %}</td>
+					<td>{% if element['Natural change (per 1000)'] < 0 %}
+							<p style=" color:red;"> {{ element['Natural change (per 1000)'] }}   </p>
+						{% else %}
+							{{ element['Natural change (per 1000)'] }}
+						{% endif %}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+<div class="tab2"> </br></br></br></br>
+	<table class ="table table-striped" style="width:200px;margin-left:180px; font-size:15px; ">
+		<tr>
+			<th scope="col" colspan="2"> <b><center>Population</center></b> </th>
+			<th scope="col" > <b><center>Naissance</center></b> </th>
+			<th scope="col" > <b><center>Décès</center></b> </th>
+			<th scope="col" > <b><center>Changement Naturel</center></b> </th>
+			<th scope="col" > <b><center>Changement Naturel % </center></b> </th>
+		</tr>
+		<tr>
+			<td><b> Max</b> </td>
+			<td>{% for element in maxPop %}
+					{{ element['Average population (1 January)'] }}
+				{% endfor %} </td>
+			<td>{% for element in maxNaiss %}
+					{{ element['Live births'] }}
+				{% endfor %}</td>
+			<td>{% for element in maxDec %}
+					{{ element['Deaths'] }}
+				{% endfor %}</td>
+			<td>{% for element in maxChNat %}
+					{% if element['Natural change'] < 0 %}
+						<p style=" color:red;"> {{ element['Natural change'] }}   </p>
+					{% else %}
+						{{ element['Natural change'] }}
+					{% endif %}
+				{% endfor %}</td>
+			<td>{% for element in maxChNatPourcen %}
+					{% if element['Natural change (per 1000)'] < 0 %}
+						<p style=" color:red;"> {{ element['Natural change (per 1000)'] }}   </p>
+					{% else %}
+						{{ element['Natural change (per 1000)'] }}
+					{% endif %}
+				{% endfor %}</td>
+		</tr>
+		<tr>
+			<td><b> Min</b> </td>
+			<td>{% for element in minPop %}
+					{{ element['Average population (1 January)'] }}
+				{% endfor %}</td>
+			<td>{% for element in minNaiss %}
+					{{ element['Live births'] }}
+				{% endfor %}</td>
+			<td>{% for element in minDec %}
+					{{ element['Deaths'] }}
+				{% endfor %}</td>
+			<td>{% for element in minChNat %}
+					{% if element['Natural change'] < 0 %}
+						<p style=" color:red;"> {{ element['Natural change'] }}   </p>
+					{% else %}
+						{{ element['Natural change'] }}
+					{% endif %}
+				{% endfor %}</td>
+			<td>{% for element in minChNatPourcen %}
+					{% if element['Natural change (per 1000)'] < 0 %}
+						<p style=" color:red;"> {{ element['Natural change (per 1000)'] }}   </p>
+					{% else %}
+						{{ element['Natural change (per 1000)'] }}
+					{% endif %}
+				{% endfor %}</td>
+		</tr>
+		<tr>
+			<td><b> Avg</b></td>
+			<td>{% for element in avgPop %}
+					{{ element['Average population (1 January)'] }}
+				{% endfor %}</td>
+			<td>{% for element in avgNaiss %}
+					{{ element['Live births'] }}
+				{% endfor %}</td>
+			<td>{% for element in avgDec %}
+					{{ element['Deaths'] }}
+				{% endfor %}</td>
+			<td>{% for element in avgChNat %}
+					{% if element['Natural change'] < 0 %}
+						<p style=" color:red;"> {{ element['Natural change'] }}   </p>
+					{% else %}
+						{{ element['Natural change'] }}
+					{% endif %}
+				{% endfor %}</td>
+			<td>{% for element in avgChNatPourcen %}
+					{% if element['Natural change (per 1000)'] < 0 %}
+						<p style=" color:red;"> {{ element['Natural change (per 1000)'] }}   </p>
+					{% else %}
+						{{ element['Natural change (per 1000)'] }}
+					{% endif %}
+				{% endfor %}</td>
+		</tr>
+	</table>
+	<div class="graph" style="width:200px;margin-left:150px; margin-right:150px; font-size:15px; ">
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			<script type="text/javascript">
+				google.charts.load('current', {'packages':['corechart']});
+				google.charts.setOnLoadCallback(drawChart);
+				function drawChart(){
+					var data = google.visualization.arrayToDataTable([
+						['Year', 'Population' ],
+						{% for element in dataGraphPop %}
+							{% if element['Year'] != 1900 %}
+								["{{ element['Year'] }}",  {{ element['Average population (1 January)'] }} ],
+							{% endif %}
+						{% endfor %}
+						]);
+					var options = {
+						title: 'POPULATION',
+						curveType: 'function',
+						legend: { position: 'bottom' }
+					};
+					var chart = new google.visualization.LineChart(document.getElementById('curve_chartPopulation1'));
+					chart.draw(data, options);
+				  }
+			</script>
+
+			<script type="text/javascript">
+				google.charts.load('current', {'packages':['corechart']});
+				google.charts.setOnLoadCallback(drawChart);
+				function drawChart() {
+					var data = google.visualization.arrayToDataTable([
+						['Year','NATALITY', 'DEATHS'],
+						{% for element in dataGraphNaissEtDec %}
+							{% if element['Year'] != 2021 %}
+								["{{ element['Year'] }}",  {{ element['Live births'] }},  {{ element['Deaths'] }} ],
+							{% endif %}
+						{% endfor %}
+						]);
+						var options = {
+							title: 'DEATHS & NATALITY',
+							curveType: 'function',
+							legend: { position: 'bottom' }
+						};
+						var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+						chart.draw(data, options);
+					}
+			</script>
+
+			<script type="text/javascript">
+				google.charts.load('current', {'packages':['corechart']});
+				google.charts.setOnLoadCallback(drawChart);
+				function drawChart() {
+					var data = google.visualization.arrayToDataTable([
+					['Year', 'Population' ],
+					{% for element in dataGraphChNat %}
+						{% if element['Year'] != 1900 %}
+							["{{ element['Year'] }}",  {{ element['Natural change (per 1000)'] }} ],
+						{% endif %}
+					 {% endfor %}
+					]);
+					var options = {
+						title: 'CHANGEMENT NATUREL',
+						curveType: 'function',
+						legend: { position: 'bottom' }
+					};
+					var chart = new google.visualization.LineChart(document.getElementById('curve_chartPopulation2'));
+					chart.draw(data, options);
+				  }
+			</script>
+		<div id="curve_chartPopulation1" style="width: 800px; height:390px"></div>
+		<div id="curve_chart" style="width: 800px; height:390px"></div>
+		<div id="curve_chartPopulation2" style="width: 800px; height:390px"></div>
+	</div>
+</div>
+
+
+
+{% include "vuePied.html" %}

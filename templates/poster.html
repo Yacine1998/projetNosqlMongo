@@ -1,0 +1,21 @@
+ {% include "Entete.html" %}
+  <form role="form" action="/vueAccueil/vueDate" method="POST" style="font-size:18px;  margin-left:510px; " >
+				<div class="form-group" >
+					<label for="yearDeb">Date debut</label>
+					<select name="yearDeb" id="yearDeb">
+					 {% for element in table1 %}
+						<option value="{{ element['Year'] }}">
+						{{ element['Year'] }} </option>
+						{% endfor %}
+					</select>
+						<label for="yearFin">Date fin</label>
+					<select name="yearFin" id="yearFin">
+					 {% for element in table2 %}
+						<option value="{{ element['Year'] }}">
+						{{ element['Year'] }} </option>
+						{% endfor %}
+					</select>
+					<button type="submit" class="btn btn-success">Se connecter</button>
+				</div>
+			</form>
+{% include "vuePied.html" %}

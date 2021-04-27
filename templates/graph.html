@@ -1,0 +1,136 @@
+{% include "Entete.html" %}
+<style>
+body {
+  width: 100%;
+  float: left;
+}
+.graphe,
+.row{
+  width: 49.33%;
+  float: left;
+  height: 100px;
+}
+.row{
+	margin-top: 100px;
+}
+</style>
+
+    <div class="graphe" >
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+		<script type="text/javascript">
+		  google.charts.load('current', {'packages':['corechart']});
+		  google.charts.setOnLoadCallback(drawChart);
+		  function drawChart() {
+			var data = google.visualization.arrayToDataTable([
+			   ['Year', 'Population' ],
+			{% for element in graphie %}
+				{% if element['Year'] != 1900 %}
+					["{{ element['Year'] }}",  {{ element['Average population (1 January)'] }} ],
+				{% endif %}
+			 {% endfor %}
+			]);
+			var options = {
+			  title: 'POPULATION',
+			  curveType: 'function',
+			  legend: { position: 'bottom' }
+			};
+			var chart = new google.visualization.LineChart(document.getElementById('curve_chartPopulation'));
+			chart.draw(data, options);
+		  }
+		</script>
+		<div id="curve_chartPopulation" style="width: 900px; height:500px"></div>
+			<script type="text/javascript">
+			google.charts.load('current', {'packages':['corechart']});
+			google.charts.setOnLoadCallback(drawChart);
+			function drawChart() {
+				var data = google.visualization.arrayToDataTable([
+					['Year','NATALITY', 'DEATHS'],
+					{% for element in table %}
+						{% if element['Year'] != 2021 %}
+							["{{ element['Year'] }}",  {{ element['Live births'] }},  {{ element['Deaths'] }} ],
+						{% endif %}
+			 		{% endfor %}
+				]);
+				var options = {
+			  		title: 'DEATHS & NATALITY',
+			  		curveType: 'function',
+			  		legend: { position: 'bottom' }
+				};
+				var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+				chart.draw(data, options);
+		  	}
+		</script>
+		<div id="curve_chart" style="width: 900px; height:500px"></div>
+	</div>
+
+		<div class="row">
+			</br></br>
+			<table class ="table table-striped" style="width:320px;margin-left:140px; font-size:16px; ">
+				<tr>
+					<th scope="col"> </th>
+					<th scope="col">  <b> Population </b> </th>
+				</tr>
+				<tr>
+					<td><b> Max</b> </td>
+					<td>{% for element in maxPopulation %}
+							{{ element['Average population (1 January)'] }}
+						{% endfor %}
+					</td>
+				</tr>
+				<tr>
+					<td><b> Min</b> </td>
+					<td>{% for element in minPopulation %}
+							{{ element['Average population (1 January)'] }}
+						{% endfor %}
+					</td>
+				</tr>
+				<tr>
+					<td><b> Avg</b> </td>
+					<td>{% for element in avgPopulation %}
+							{{ element['Average population (1 January)'] }}
+						{% endfor %}
+					</td>
+				</tr>
+			</table>
+			</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+			<table class ="table table-striped" style=" width:400px;margin-left:150px; font-size:16px; ">
+				<tr>
+					<th scope="col"> </th>
+					<th scope="col"> <b> Naissances </b></th>
+					<th scope="col"> <b> Décès </b></th>
+				</tr>
+				<tr>
+					<td><b> Max</b> </td>
+					<td> {% for element in maxNaiss %}
+							{{ element['Live births'] }}
+						{% endfor %} </td>
+					<td> {% for element in maxDec %}
+							{{ element['Deaths'] }}
+						{% endfor %} </td>
+				</tr>
+				<tr>
+					<td><b> Min</b> </td>
+					<td> {% for element in minNaiss %}
+							{{ element['Live births'] }}
+						{% endfor %} </td>
+					<td> {% for element in minDec %}
+							{{ element['Deaths'] }}
+						{% endfor %} </td>
+				</tr>
+				<tr>
+					<td><b> Avg </b> </td>
+					<td> {% for element in avgNaiss %}
+							{{ element['Live births'] }}
+						{% endfor %} </td>
+					<td> {% for element in avgDec %}
+							{{ element['Deaths'] }}
+						{% endfor %} </td>
+				</tr>
+			</table>
+		</div>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+
+{% include "vuePied.html" %}

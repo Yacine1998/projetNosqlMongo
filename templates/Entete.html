@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Demographics of France</title>
+		<link rel="stylesheet" href="{{ url_for( 'static' , filename = 'css/bootstrap.min.css' ) }}">
+		<link rel="stylesheet" href="{{ url_for( 'static' , filename = 'css/resanet.css' ) }}" >
+		<script type="text/javascript" src="{{ url_for( 'static' , filename = 'js/jquery-1.11.2.js' ) }}"></script>
+		<script type="text/javascript" src="{{ url_for( 'static' , filename = 'js/bootstrap.min.js' ) }}"></script>
+	</head>
+
+	<body>
+
+<nav class="navbar navbar-default" role="navigation" style="width:1465px; margin-left:45px;">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand"> Démographie de France </span>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="/accueil"> Accueil </a></li>
+				<li><a href="/tableau"> Tableau </a></li>
+				<li><a href="/graph"> Graphe </a></li>
+				<li><a href="/poster"> Vis Dynammique </a></li>
+            </ul>
+		</div>
+	</div>
+</nav>
