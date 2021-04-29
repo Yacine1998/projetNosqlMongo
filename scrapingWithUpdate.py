@@ -67,7 +67,9 @@ if __name__ == '__main__':
     #update les données
     collection.update({'Average population (1 January)' : float('nan')},{ '$set' : {'Average population (1 January)' : 0 }})
     collection.update({'Year' : 2021},{ '$set' : {'Natural change' : 0 , 'Natural change (per 1000)':0, 'Deaths' : 0, 'Live births' : 0}})
-    
-    
+
+    #Supprimer des données
+    collection.remove({ 'Year' : 2021 })
+    collection.remove({ 'Year': 1900 })
    
     

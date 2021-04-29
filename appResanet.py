@@ -9,6 +9,18 @@ from modeles import modele
 app = Flask(__name__)
 app.secret_key = 'Data'
 
+@app.route( '/2' , methods = [ 'GET' ] )
+def graphiesAge() :
+   graph = modele.getAllDataAge()
+   table = modele.getAllDataAge()
+   return render_template( 'grapheAge.html' , table = table, graph =graph)
+
+@app.route( '/3' , methods = [ 'POST' ] )
+def graphiesAgeYear() :
+   year = request.form['year']
+   graph = modele.getDataAge(year)
+   table = modele.getAllDataAge()
+   return render_template( 'grapheAgeWithYear.html' , graph =graph, year=year,table=table)
 
 @app.route('/accueil', methods=['GET'])
 def index():

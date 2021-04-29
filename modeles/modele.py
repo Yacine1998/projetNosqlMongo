@@ -18,7 +18,35 @@ def getCollectionBD() :
 	except :
 		return None
 		
-		
+
+# ---------------FONCTION DATA AGE-------------------------
+def getAllDataAge():
+   try :
+
+      client = MongoClient("mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false")
+      db_data = client.dataDimog
+      collectionAge = db_data['collecDimogAge']
+      curseur = collectionAge.find()
+      return curseur
+   except :
+      return None
+
+
+def getDataAge(year):
+   try :
+
+      client = MongoClient("mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false")
+      db_data = client.dataDimog
+      collectionAge = db_data['collecDimogAge']
+      curseur = collectionAge.aggregate([
+         {'$match' : {'Year' : int(year)}}
+      ])
+      return curseur
+   except :
+      return None
+
+#---------------------------------------------------------------
+
 def getAllData():
 	try :
 		curseur = getCollectionBD().find()
@@ -58,7 +86,7 @@ def getAvgWithPopulation(yearDeb,yearFin):
 	try :
 		yearDeb = int(yearDeb)
 		yearFin = int(yearFin)
-		avg = collection.aggregate([{"$match":{"$and": [{"Year": {'$gte':yearDeb}}, {"Year": {'$lte': yearFin}}]}},{"$group" : {"_id" : 'null', "Average population (1 January)" : { "$avg" : '$Average population (1 January)'} }}])
+		avg = collection.aggregate([{"$match": {"$and": [{"Year": {'$gte': yearDeb}}, {"Year": {'$lte': yearFin}}]}},{"$group": {"_id": 'null', "Average" : {"$avg": '$Average population (1 January)'}}}, {'$project':{ '_id':'$_id','reoundV':{'$ceil':'$Average'}}}])
 		return avg
 	except :
 		return None
@@ -86,7 +114,7 @@ def getAvgNaiss(yearDeb,yearFin):
 	try :
 		yearDeb = int(yearDeb)
 		yearFin = int(yearFin)
-		avg = collection.aggregate([{"$match":{"$and": [{"Year": {'$gte':yearDeb}}, {"Year": {'$lte': yearFin}}]}},{"$group" : {"_id" : 'null', "Live births" : { "$avg" : '$Live births'} }}])
+		avg = collection.aggregate([{"$match": {"$and": [{"Year": {'$gte': yearDeb}}, {"Year": {'$lte': yearFin}}]}},{"$group": {"_id": 'null', "Average" : {"$avg": '$Live births'}}}, {'$project':{ '_id':'$_id','reoundV':{'$ceil':'$Average'}}}])
 		return avg
 	except :
 		return None
@@ -114,7 +142,7 @@ def getAvgDec(yearDeb,yearFin):
 	try :
 		yearDeb = int(yearDeb)
 		yearFin = int(yearFin)
-		avg = collection.aggregate([{"$match":{"$and": [{"Year": {'$gte':yearDeb}}, {"Year": {'$lte': yearFin}}]}},{"$group" : {"_id" : 'null', "Deaths" : { "$avg" : '$Deaths'} }}])
+		avg = collection.aggregate([{"$match": {"$and": [{"Year": {'$gte': yearDeb}}, {"Year": {'$lte': yearFin}}]}},{"$group": {"_id": 'null', "Average" : {"$avg": '$Deaths'}}}, {'$project':{ '_id':'$_id','reoundV':{'$ceil':'$Average'}}}])
 		return avg
 	except :
 		return None
@@ -142,7 +170,7 @@ def getAvgChNat(yearDeb,yearFin):
 	try :
 		yearDeb = int(yearDeb)
 		yearFin = int(yearFin)
-		avg = collection.aggregate([{"$match":{"$and": [{"Year": {'$gte':yearDeb}}, {"Year": {'$lte': yearFin}}]}},{"$group" : {"_id" : 'null', "Natural change" : { "$avg" : '$Natural change'} }}])
+		avg = collection.aggregate([{"$match": {"$and": [{"Year": {'$gte': yearDeb}}, {"Year": {'$lte': yearFin}}]}},{"$group": {"_id": 'null', "Average" : {"$avg": '$Natural change'}}}, {'$project':{ '_id':'$_id','reoundV':{'$ceil':'$Average'}}}])
 		return avg
 	except :
 		return None
@@ -173,8 +201,7 @@ def getAvgChNatPourcen(yearDeb, yearFin):
 	try:
 		yearDeb = int(yearDeb)
 		yearFin = int(yearFin)
-		avg = collection.aggregate([{"$match": {"$and": [{"Year": {'$gte': yearDeb}}, {"Year": {'$lte': yearFin}}]}}, {
-			"$group": {"_id": 'null', "Natural change (per 1000)": {"$avg": '$Natural change (per 1000)'}}}])
+		avg = collection.aggregate([{"$match": {"$and": [{"Year": {'$gte': yearDeb}}, {"Year": {'$lte': yearFin}}]}},{"$group": {"_id": 'null', "Average" : {"$avg": '$Natural change (per 1000)'}}}, {'$project':{ '_id':'$_id','reoundV':{'$ceil':'$Average'}}}])
 		return avg
 	except:
 		return None
@@ -190,7 +217,7 @@ def getmaxPopulation():
 
 def getavgPopulation():
 	try :
-		avg = collection.aggregate([ {"$group" : {"_id" : 'null', "Average population (1 January)" : { "$avg" : '$Average population (1 January)'} }}])
+		avg = collection.aggregate([ {"$group" : {"_id" : 'null', "Average" : { "$avg" : '$Average population (1 January)'}}}, {'$project':{ '_id':'$_id','reoundV':{'$ceil':'$Average'}}}])
 		return avg
 	except :
 		return None
@@ -213,7 +240,7 @@ def getmaxNaiss():
 
 def getavgNaiss():
 	try :
-		avg = collection.aggregate([ {"$group" : {"_id" : 'null', "Live births" : { "$avg" : '$Live births'} }}])
+		avg = collection.aggregate([ {"$group" : {"_id" : 'null', "Average" : { "$avg" : '$Live births'}}}, {'$project':{ '_id':'$_id','reoundV':{'$ceil':'$Average'}}}])
 		return avg
 	except :
 		return None
@@ -236,7 +263,7 @@ def getmaxDec():
 
 def getavgDec():
 	try :
-		avg = collection.aggregate([ {"$group" : {"_id" : 'null', "Deaths" : { "$avg" : '$Deaths'} }}])
+		avg = collection.aggregate([ {"$group" : {"_id" : 'null', "Average" : { "$avg" : '$Deaths'}}}, {'$project':{ '_id':'$_id','reoundV':{'$ceil':'$Average'}}}])
 		return avg
 	except :
 		return None
@@ -247,6 +274,4 @@ def getminDec():
 		return min
 	except :
 		return None
-'''def kvjb():
-	avg = collection.aggregate([{"$match": {"$and": [{"Year": {'$gte': 1903}}, {"Year": {'$lte': 1912}}]}},
-								{"$group": {"_id": 'null', "Deaths": {"$avg": '$Deaths'},'Year':'$Year' }}])'''
+

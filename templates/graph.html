@@ -11,13 +11,12 @@ body {
   height: 100px;
 }
 .row{
-	margin-top: 100px;
+	margin-top: 70px;
 }
 </style>
-
-    <div class="graphe" >
+<div class="tout" style="margin-left:80px;">
+    <div class="graphe"  style="margin-left:50px;">
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
 		<script type="text/javascript">
 		  google.charts.load('current', {'packages':['corechart']});
 		  google.charts.setOnLoadCallback(drawChart);
@@ -39,7 +38,8 @@ body {
 			chart.draw(data, options);
 		  }
 		</script>
-		<div id="curve_chartPopulation" style="width: 900px; height:500px"></div>
+		<div id="curve_chartPopulation" style="width: 800px; height:300px"></div>
+			</br></br>
 			<script type="text/javascript">
 			google.charts.load('current', {'packages':['corechart']});
 			google.charts.setOnLoadCallback(drawChart);
@@ -61,12 +61,12 @@ body {
 				chart.draw(data, options);
 		  	}
 		</script>
-		<div id="curve_chart" style="width: 900px; height:500px"></div>
+		<div id="curve_chart" style="width: 800px; height:300px"></div>
 	</div>
 
 		<div class="row">
-			</br></br>
-			<table class ="table table-striped" style="width:320px;margin-left:140px; font-size:16px; ">
+
+			<table class ="table table-striped" style="width:320px;margin-left:80px; font-size:16px; ">
 				<tr>
 					<th scope="col"> </th>
 					<th scope="col">  <b> Population </b> </th>
@@ -88,21 +88,21 @@ body {
 				<tr>
 					<td><b> Avg</b> </td>
 					<td>{% for element in avgPopulation %}
-							{{ element['Average population (1 January)'] }}
+							{{ element['reoundV'] }}
 						{% endfor %}
 					</td>
 				</tr>
 			</table>
-			</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+			</br></br></br></br></br></br></br></br></br>
 
-			<table class ="table table-striped" style=" width:400px;margin-left:150px; font-size:16px; ">
+			<table class ="table table-striped" style=" width:400px;margin-left:80px; font-size:16px; ">
 				<tr>
 					<th scope="col"> </th>
 					<th scope="col"> <b> Naissances </b></th>
 					<th scope="col"> <b> Décès </b></th>
 				</tr>
 				<tr>
-					<td><b> Max</b> </td>
+					<td><b> Max  </b> </td>
 					<td> {% for element in maxNaiss %}
 							{{ element['Live births'] }}
 						{% endfor %} </td>
@@ -111,7 +111,7 @@ body {
 						{% endfor %} </td>
 				</tr>
 				<tr>
-					<td><b> Min</b> </td>
+					<td><b> Min  </b> </td>
 					<td> {% for element in minNaiss %}
 							{{ element['Live births'] }}
 						{% endfor %} </td>
@@ -120,17 +120,17 @@ body {
 						{% endfor %} </td>
 				</tr>
 				<tr>
-					<td><b> Avg </b> </td>
+					<td><b> Avg   </b> </td>
 					<td> {% for element in avgNaiss %}
-							{{ element['Live births'] }}
+							{{ element['reoundV'] }}
 						{% endfor %} </td>
 					<td> {% for element in avgDec %}
-							{{ element['Deaths'] }}
+							{{ element['reoundV'] }}
 						{% endfor %} </td>
 				</tr>
 			</table>
 		</div>
 </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
 
-
+</div>
 {% include "vuePied.html" %}
